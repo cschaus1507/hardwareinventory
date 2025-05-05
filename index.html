@@ -7,7 +7,6 @@
   <script>
     async function handleSubmit(event) {
       event.preventDefault();
-
       const form = event.target;
       const data = {
         name: form.name.value,
@@ -27,7 +26,7 @@
         other_hardware: form.other_hardware.value
       };
 
-      const response = await fetch("https://api.sheetbest.com/sheets/ef4d1f1d-5f4b-4728-b775-c70af5e5119f", {
+      const response = await fetch("https://techinventorybackend.onrender.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -39,7 +38,6 @@
       if (response.ok) {
         message.innerHTML = '<span style="color: green;">✅ Thank you! Your response has been submitted successfully.</span>';
         form.reset();
-        // Hide all optional sections again
         ["desktop", "laptop", "chromebook", "cleartouch"].forEach(prefix => {
           document.getElementById(`${prefix}_fields`).style.display = "none";
         });
@@ -72,27 +70,17 @@
     @media (max-width: 600px) {
       body, .container { padding: 1rem; }
     }
-  button.clicked {
-  transform: scale(0.93) rotate(-0.5deg);
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
-  background-color: #3a4de0;
-  transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.08s ease;
-}
-</style>
+  </style>
 </head>
 <body>
   <div class="container">
     <header>
       <h1>2025 District Tech Hardware Inventory</h1>
     </header>
-
     <p><strong>Important:</strong> We are conducting a technology inventory to determine which machines across the district need upgrades or replacements. Please complete the form below as accurately as possible. If you currently have a Windows 11-compliant district-issued laptop, we may not be able to replace your desktop if it cannot be upgraded. You may request a docking station if you require a full-sized monitor and keyboard setup.</p>
-
     <p>To check your Windows version, press <strong>Start</strong> → type "winver" → press Enter.</p>
-
     <form onsubmit="handleSubmit(event)">
       <label>Full Name <input type="text" name="name" required /></label>
-
       <label>Building
         <select name="building" required>
           <option value="">Select...</option>
@@ -102,7 +90,6 @@
           <option>District Office</option>
         </select>
       </label>
-
       <label>Area of Work
         <select name="area" required>
           <option value="">Select...</option>
@@ -113,7 +100,6 @@
           <option>Other</option>
         </select>
       </label>
-
       <label>Are you using a Desktop Computer?
         <select name="desktop_used" required>
           <option value="">Select...</option>
@@ -129,7 +115,6 @@
           <option>Windows 11</option>
         </select></label>
       </div>
-
       <label>Are you using a District-Issued Laptop?
         <select name="laptop_used" required>
           <option value="">Select...</option>
@@ -145,7 +130,6 @@
           <option>Windows 11</option>
         </select></label>
       </div>
-
       <label>Are you using a District-Issued Chromebook?
         <select name="chromebook_used" required>
           <option value="">Select...</option>
@@ -156,7 +140,6 @@
       <div id="chromebook_fields" style="display:none; margin-left: 1.5rem; border-left: 3px solid #ccc; padding-left: 1rem;">
         <label>Chromebook Model <input type="text" name="chromebook_model" /></label>
       </div>
-
       <label>Are you using a Cleartouch Panel?
         <select name="cleartouch_used" required>
           <option value="">Select...</option>
@@ -178,9 +161,7 @@
           <option>Windows 11</option>
         </select></label>
       </div>
-
       <label>Other hardware of note (e.g., document camera, etc.) <textarea name="other_hardware" rows="3"></textarea></label>
-
       <button type="submit" id="submitBtn" onclick="this.classList.add('clicked'); setTimeout(() => this.classList.remove('clicked'), 150);">Submit</button>
       <div id="message"></div>
     </form>
